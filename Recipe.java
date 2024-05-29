@@ -3,9 +3,9 @@ package DSAproject;
 import java.util.Scanner;
 
 public class Recipe { 
-  private  String Title;
-  private  String Ingridients;
-  private  String Procedure=""; 
+    String Title;
+    String Ingredients;
+    String Procedure=""; 
   
   void addTitle(){
     Scanner input = new Scanner(System.in);
@@ -14,10 +14,10 @@ public class Recipe {
     input.close();
     
   }
-  void addIngridients(){
+  void addIngredients(){
     Scanner input = new Scanner(System.in);
-    System.out.print("Ingridients: ");
-    Ingridients= input.nextLine(); 
+    System.out.print("Ingredients: ");
+    Ingredients= input.nextLine(); 
     input.close();
      
   }
@@ -36,14 +36,14 @@ public class Recipe {
   public String getTitle(){
     return Title; 
   }
-  public String getIngridients(){
-    return Ingridients; 
+  public String getIngredients(){
+    return Ingredients; 
   }
   public String getProcedure(){  
     return Procedure;  
   }
   public String recipeToString(){
-    return "Title: "+ Title+"\n"+"Ingridients: "+Ingridients+"\n"+ "Procedure\n"+ Procedure;
+    return "Title: "+ Title+"\n"+"Ingredients: "+Ingredients+"\n"+ "Procedure\n"+ Procedure;
   }
 
 }
