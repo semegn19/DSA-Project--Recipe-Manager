@@ -2,57 +2,64 @@ package DSAproject;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
-
 public class RecipeManager {
-  static ArrayList<String> recipies= new ArrayList<>();
+  static ArrayList<Recipe> recipies= new ArrayList<>();
   static void addRecipe(){ 
     Recipe recipe = new Recipe();
     recipe.addTitle();    
-    recipe.addIngridients(); 
+    recipe.addIngredients(); 
     recipe.addProcedure(); 
-    recipies.add(recipe.recipeToString()); 
+    recipies.add(recipe); 
   }
-  static void removeRecipe(String recipe){ 
-    for(String r:recipies){  
+  static void removeRecipe(Recipe recipe){ 
+    for(Recipe r:recipies){  
         if(recipe.equals(r)){  
           recipies.remove(r); 
-          break;
+          break; 
       }
     }
   }
-  static void viewRecipe(){       
-      
-      if(recipies!=null){ 
-        for(String r:recipies){ 
-     	 System.out.println(r); 
-      }  
-      }
-      else{ 
-        System.out.println("nothing to see here"); 
-      }
-      
-   
-    
-    
-  }
+  static void sortRecipe() {
+        for (int i = 0; i < recipies.size() - 1; i++) {
+            for (int j = 0; j < recipies.size() - i - 1; j++) {
+                if (recipies.get(j).getTitle().compareTo(recipies.get(j + 1).getTitle()) > 0) {
+                    Collections.swap(recipies, j, j + 1);
+                }
+            }
+        }
+    }
+
+    static void viewRecipe() {
+        sortRecipe();
+        if (recipies != null && !recipies.isEmpty()) {
+            for (Recipe r : recipies) {
+                System.out.println(r.recipeToString());
+            }
+        } else {
+            System.out.println("nothing to see here");
+        }
+    }
   static String search(String item){  
-    Iterator <String>searchFor= recipies.iterator();
+    Iterator <Recipe>searchFor= recipies.iterator();
     while(searchFor.hasNext()){
-      String a=searchFor.next();
-      if(a.toLowerCase().contains(item.toLowerCase())){ 
-        return a;
+      Recipe a=searchFor.next();
+      if(a.recipeToString().toLowerCase().contains(item.toLowerCase())){ 
+        return a.recipeToString();
         
       }
       
     }
     return "We cant find what you are looking for";
   }
-
+  
 
 //This main method is just for testing the methods 
   public static void main(String[] args) {   
+    
+   // System.out.println(recipies.size());
     Scanner sc= new Scanner(System.in);
     boolean exit= true;
     while(exit){
@@ -62,6 +69,7 @@ public class RecipeManager {
             System.out.println("3. View Recipies");
             System.out.println("4. Search Recipies");
             System.out.println("5. Exit");
+      
             System.out.print("Enter the number of the task you want to do: ");
             int choice = sc.nextInt();
             sc.nextLine(); // Consume the leftover newline character
@@ -87,9 +95,9 @@ public class RecipeManager {
                     String searching = sc.nextLine(); 
                     System.out.println(search(searching));  
                     break;
-                case 5: 
-                    exit = false;
-                    break; 
+                case 5:
+         		 exit = false;
+        		  break;
                 default:
                     System.out.println("Please choose numbers from 1 to 4"); 
             }
@@ -100,5 +108,3 @@ public class RecipeManager {
   }
 
 }
-//I didnt do sorting that's left for the next backend coder 
-//also i didnt add exceptions because after GUI we will have completly different exceptions so it didnt seem neccessary
